@@ -6,10 +6,7 @@ var cheerio = require('cheerio');
 app.get('/', function (req, res) {
   request('http://www.qshealthcare.com/', function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      // console.log(body); 
-      // $ = cheerio.load($('section'));
-      // console.log($);
-      // $.html(); 
+
       $ = cheerio.load(body);
       var p = $('p.qs-identity').text();
 
@@ -26,6 +23,5 @@ app.get('/', function (req, res) {
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
-
   console.log('Example app listening at', host, port);
 });
