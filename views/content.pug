@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 
+    | 每天最新一篇文章
+
+    each t in list
+      p 
+        a(href='/detail/'+t.title)
+          | #{t.title}
