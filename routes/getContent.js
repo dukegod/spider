@@ -8,9 +8,7 @@ function getContent() {
         $ = cheerio.load(body);
         // console.log(body);
         let items = [];
-
         const big =  $('.t_feature-title a');
-
         items.push({
           title: big.html(),
           href: big.attr('href')
@@ -23,20 +21,28 @@ function getContent() {
   })
 }
 
-function getDetial() {
+function getDetial(e) {
+    const parames = e.toLowerCase().split(' ').join('-');
     return new Promise((resolve, reject) => {
-    request('https://www.scientificamerican.com/podcast/episode/', (error, response, body) => {
-      if (!error && response.statusCode == 200) {
-        $ = cheerio.load(body);
-        // console.log(body);
-        let items = [];
-        const big =  $('.transcript__inner');
+      console.log(`https://www.scientificamerican.com/podcast/episode/${parames}`);
+      request(`https://www.scientificamerican.com/podcast/episode/${parames}`, (error, response, body) => {
+        if (!error && response.statusCode == 200) {
+          $ = cheerio.load(body);
+          // console.log(body);
+          let items = [];
+          let big =  $('.transcript__inner').html();
 
-        resolve(big)
-      } else {
-        reject(error)
-      }
-    })
+          big.split('</p>')
+
+          console.log(big)
+
+
+
+          resolve(big)
+        } else {
+          reject(error)
+        }
+      })
   })
 }
 

@@ -19,10 +19,11 @@ router.get('/title', function (req, res) {
 });
 
 router.get('/detail/:title', function (req, res) {
-  console.log(req);
-  getDetial().then(re => {
+  console.log(req.params.title);
+  getDetial(req.params.title).then(re => {
     console.log(re);
-    res.render('content', {list: re})
+    res.send(re)
+    // res.render('detail', {content: re})
   })
 });
 
