@@ -36,8 +36,6 @@ function getDetial(e) {
 
           console.log(big)
 
-
-
           resolve(big)
         } else {
           reject(error)
