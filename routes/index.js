@@ -3,12 +3,19 @@ var router = express.Router();
 var request = require('request');
 var cheerio = require('cheerio');
 
+require('./db')
+// var linuxDb = require('./db')
+// console.log(linuxDb);
+
 
 var { getContent, getDetial } = require('./getContent')
 
 var redHeartdb = require('./get_red_heart_doubanFM')
 
-const linuxCommand = require('./linux-commands');
+const {linuxCommand} = require('./linux-commands');
+
+console.log(linuxCommand);
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -45,9 +52,8 @@ router.get('/dbfm', function (req, res) {
 
 // 获取linux命令
 router.get('/linux', (req, res)=>{
-  console.log();
   linuxCommand().then(re =>{
-    re.send(re)
+    res.send(re)
   }).catch(err => {
     res.send('err')
   })

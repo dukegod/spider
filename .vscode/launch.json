@@ -6,9 +6,9 @@
   "configurations": [
     {
       "type": "chrome",
-      "request": "launch",
-      "name": "Launch Chrome",
-      "url": "http://localhost:8080",
+      "request": "attach",
+      "name": "Attach to Chrome",
+      "port": 9222,
       "webRoot": "${workspaceFolder}"
     }
   ]
