@@ -8,6 +8,8 @@ var { getContent, getDetial } = require('./getContent')
 
 var redHeartdb = require('./get_red_heart_doubanFM')
 
+const linuxCommand = require('./linux-commands');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Spider Pro' });
@@ -39,5 +41,17 @@ router.get('/dbfm', function (req, res) {
   })
   // res.send('ok')
 });
+
+
+// 获取linux命令
+router.get('/linux', (req, res)=>{
+  console.log();
+  linuxCommand().then(re =>{
+    re.send(re)
+  }).catch(err => {
+    res.send('err')
+  })
+})
+
 
 module.exports = router;
