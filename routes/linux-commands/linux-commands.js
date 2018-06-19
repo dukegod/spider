@@ -4,14 +4,9 @@ const cheerio = require('cheerio');
 
 const outContent = require('./req-logic');
 
-async function getContent() {
-  return await outContent({
-    page: 1,
-    pageSize: 1
-  })
+async function getContent(opts) {
+  return await outContent(opts);
 }
 
 
-module.exports = { 
-  linuxCommand: getContent 
-}
+module.exports = getContent

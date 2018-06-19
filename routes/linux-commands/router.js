@@ -6,23 +6,32 @@
 
 const express = require('express');
 const router = express.Router();
-
-const { linuxCommand } = require('./linux-commands');// 获取linux命令
-
-// router.get('/linux', (req, res)=>{
-//   linuxCommand().then(re =>{
-//     res.send(re)
-//   }).catch(err => {
-//     res.send('err')
-//   })
-// })
+const getContent  = require('./linux-commands');
 
 
 router.get('/linux', (req, res) => {
-  linuxCommand.then((re)=>{
+
+
+  let itemTitle = {
+    title: '文件和目录管理',
+    titleId: 1,
+    pageSize: 3,
+    content: []
+  }
+
+
+
+  getContent(itemTitle).then((re)=>{
     console.log(re)
+
+    re.forEach((val) =>{
+      itemTitle.content.push(...val);
+    })
+
+    // localStorage.setItem('filesDirs', itemTitle)
+    res.send(result);
   })
-  res.send('ok');
+  
 })
 
 router.get('/linux2', (req, res) => {
