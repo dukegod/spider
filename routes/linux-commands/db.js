@@ -1,33 +1,29 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+mongoose.connect(
+  'mongodb://linux:linux123456@ds161164.mlab.com:61164/linuxman'
+  // 'mongodb://localhost/test'
+);
 
-  const mongoose = require('mongoose');
-  const Schema = mongoose.Schema;
-  const connection = mongoose.connect(
-    'mongodb://linux:linux123456@ds161164.mlab.com:61164/linuxman'
-    // 'mongodb://localhost/test'
-  );
-
-  connection.then(
-    () => {
-      console.log('链接数据库ok');
-  
-    },
-    err => {
-      console.log(err);
-    }
-  );
-
-  function getNextSequenceValue(collections) {
-    collections.find((err, data)=>{
-      if (err) {
-        console.log(err);
-      }
-      console.log(data.length);
-      return data.length;
-    })
+const connection = mongoose.connection;
+connection.then(
+  () => {
+    console.log('链接数据库ok');
+  },
+  err => {
+    console.log(err);
   }
+);
+
+async function fileDir(modleTitle,params) {
+
+  const models = params.content; 
+  models.forEach((element, index) => {
+    element.id = index;
+  });
 
   //先创建Schema
-  const firlDirManagement = new Schema({
+  const colletionManagement = new Schema({
     id: { type: Number, default: 0 },
     title: { type: String },
     description: { type: String },
@@ -35,32 +31,20 @@
     modifyOn: { type: Date, default: Date.now }
   });
 
-  // firlDirManagement.plugin(autoIncrement.plugin, 'FDManaColl');
-
   //通过Schema创建Model- 集合（collection）
-  let FDManaColl = mongoose.model('FDManaColl', firlDirManagement);
+  let model = mongoose.model(modleTitle, colletionManagement);
+  // 插入数据
 
-
-  // 往 集合中添加数据-
-  let FDManaCollItem = new FDManaColl({
-    id: getNextSequenceValue(FDManaColl),
-    title: '111',
-    description: 'ts',
-    href: '#'
-  });
-  //
-  // // FDManaCollItem.
-  FDManaCollItem.save((err, re) => {
+  return await new Promise((resolve, reject)=>{
+      model.insertMany(models, (err, re) => {
     if (err) {
       console.log(err);
+      reject(err)
     }
-
     console.log(re);
+    resolve(re)
   });
+  })
+}
 
-  // FDManaColl.find(function(err, kittens) {
-  //   if (err) {
-  //     console.error(err);
-  //   }
-  //   console.log(kittens);
-  // });
+module.exports = fileDir;
