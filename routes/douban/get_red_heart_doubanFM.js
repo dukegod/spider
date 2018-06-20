@@ -2,7 +2,7 @@
  * Created by hui on 16/01/2018.
  * 获取豆瓣FM的列表
  */
-var request = require("request")
+const request = require("request")
 
 module.exports = function (callback) {
   const options = {
@@ -39,30 +39,23 @@ module.exports = function (callback) {
   }
 
 
-  // request(options, function (error, response, body) {
-  //   if (!error && response.statusCode == 200) {
-  //     var info = JSON.parse(body);
-  //     console.log(info + " Stars");
-  //     callback(body);
-  //   }
-  // });
+  request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var info = JSON.parse(body);
+      console.log(info + " Stars");
+      callback(body);
+    }
+  });
 
-  request({
-    url: 'https://douban.fm/j/v2/artist/guess?limit=10&is_new_user=true',
-    method: 'GET',
-  }, function (error, response, body) {
-    console.log(error)
-    console.log(response)
-    console.log(body)
-    callback(body)
-  })
-
-
-
-
-  // setTimeout(function () {
-  //   callback('90')
-  // }, 5000)
+  // request({
+  //   url: 'https://douban.fm/j/v2/artist/guess?limit=10&is_new_user=true',
+  //   method: 'GET',
+  // }, function (error, response, body) {
+  //   console.log(error)
+  //   console.log(response)
+  //   console.log(body)
+  //   callback(body)
+  // })
 }
 
 

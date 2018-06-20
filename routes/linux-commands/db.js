@@ -1,21 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-mongoose.connect(
-  'mongodb://linux:linux123456@ds161164.mlab.com:61164/linuxman'
-  // 'mongodb://localhost/test'
-);
 
-const connection = mongoose.connection;
-connection.then(
-  () => {
-    console.log('链接数据库ok');
-  },
-  err => {
-    console.log(err);
-  }
-);
 
 async function fileDir(modleTitle,params) {
+
+  mongoose.connect(
+    'mongodb://linux:linux123456@ds161164.mlab.com:61164/linuxman'
+    // 'mongodb://localhost/test'
+  );
+  
+  const connection = mongoose.connection;
+  connection.then(
+    () => {
+      console.log('链接数据库ok');
+    },
+    err => {
+      console.log(err);
+    }
+  );
 
   const models = params.content; 
   models.forEach((element, index) => {

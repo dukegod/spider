@@ -9,6 +9,9 @@ const router = express.Router();
 const getContent  = require('./linux-commands');
 const db = require('./db')
 
+router.get('/linuxpage', (req, res)=>{
+  res.render('linux', { title: '抓取lihux命令' });
+})
 
 router.get('/linux', (req, res) => {
   let itemTitle = {
