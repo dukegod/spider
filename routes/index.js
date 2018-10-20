@@ -19,6 +19,9 @@ router.use(require('./60s/router'));
 // 添加豆瓣
 router.use(require('./douban/router'));
 
+// leetcode
+router.use(require('./leetcode/router'))
+
 module.exports = router;
 
 
