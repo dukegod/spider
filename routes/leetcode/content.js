@@ -1,11 +1,11 @@
 const request = require('request');
-const cheerio = require('cheerio');
+const fs = require('fs');
 
-const getContent = function (params) { 
-  return new Promise((resolve, reject)=>{
+const getContent = function (params) {
+  return new Promise((resolve, reject) => {
     request({
       url: params,
-    }, (err, response, body)=>{
+    }, (err, response, body) => {
       if (err) reject(err)
       if (!err && response.statusCode == 200) {
         // $ = cheerio.load(body);
@@ -23,18 +23,17 @@ async function resortContent() {
 
   const result = JSON.parse(zhcode).stat_status_pairs;
   const array = [];
-    result.map((val)=>{
-      console.log(val.stat);
-      array.push({
-        id: val.stat.question_id,
-        title: val.stat.question__title,
-        titleSlug: val.stat.question__title_slug,
-        difficultyLevel: val.difficulty.level,
-      })
+  result.map((val) => {
+    array.push({
+      id: val.stat.question_id,
+      title: val.stat.question__title,
+      titleSlug: val.stat.question__title_slug,
+      difficultyLevel: val.difficulty.level,
     })
-    array.sort((a, b)=>{
-      return a.id - b.id
-    })
-    return array;
+  })
+  array.sort((a, b) => {
+    return a.id - b.id
+  })
+  return array;
 }
 module.exports = resortContent;
